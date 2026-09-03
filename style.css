@@ -1,0 +1,2357 @@
+/* ==========================================================================
+   Mohamed Abu-Eid Portfolio - Styling System
+   Theme: Sleek Dark Mode with Flutter & Dart Blue/Cyan Neon Glows
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. CSS Custom Variables & Design Tokens
+   -------------------------------------------------------------------------- */
+:root {
+  /* Color Palette */
+  --bg-primary: #0A0E17;
+  --bg-secondary: #101726;
+  --bg-card: rgba(17, 24, 39, 0.75);
+  --bg-card-hover: rgba(26, 36, 56, 0.85);
+  
+  /* Brand Accent Colors (Flutter Cyan & Electric Blue) */
+  --flutter-navy: #02569B;
+  --flutter-blue: #01B5D8;
+  --flutter-cyan: #54C5F8;
+  --accent-cyan: #00F2FE;
+  --accent-teal: #64FFDA;
+  --accent-purple: #7C4DFF;
+  
+  /* Text Colors */
+  --text-primary: #F3F4F6;
+  --text-secondary: #9CA3AF;
+  --text-muted: #6B7280;
+  
+  /* Border & Glass Properties */
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-highlight: rgba(84, 197, 248, 0.3);
+  --glass-backdrop: blur(16px);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+  
+  /* Shadows & Glows */
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.4);
+  --glow-cyan: 0 0 25px rgba(84, 197, 248, 0.35);
+  --glow-teal: 0 0 25px rgba(100, 255, 218, 0.35);
+  
+  /* Typography */
+  --font-heading: 'Outfit', -apple-system, sans-serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+  --font-mono: 'Fira Code', monospace;
+  
+  /* Transitions */
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --------------------------------------------------------------------------
+   2. Reset & General Elements
+   -------------------------------------------------------------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Typography Defaults */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.25;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--transition-fast);
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+/* Utility Layout Classes */
+.container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.section {
+  padding: 6rem 0;
+  position: relative;
+  z-index: 2;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--flutter-cyan) 0%, var(--accent-cyan) 50%, var(--accent-teal) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-center { text-align: center; }
+
+/* Background Canvas & Ambient Orbs */
+.bg-orbs-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.22;
+  animation: pulseGlow 12s infinite alternate ease-in-out;
+}
+
+.orb-1 {
+  width: 450px;
+  height: 450px;
+  background: var(--flutter-navy);
+  top: -100px;
+  right: -100px;
+}
+
+.orb-2 {
+  width: 400px;
+  height: 400px;
+  background: var(--flutter-cyan);
+  bottom: 10%;
+  left: -150px;
+  animation-delay: -4s;
+}
+
+.orb-3 {
+  width: 350px;
+  height: 350px;
+  background: var(--accent-purple);
+  top: 40%;
+  right: 15%;
+  animation-delay: -7s;
+}
+
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+  opacity: 0.4;
+}
+
+/* Glassmorphism Card Utility */
+.glass-card {
+  background: var(--bg-card);
+  backdrop-filter: var(--glass-backdrop);
+  -webkit-backdrop-filter: var(--glass-backdrop);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-normal);
+}
+
+.glass-card:hover {
+  border-color: var(--border-highlight);
+  box-shadow: var(--glow-cyan);
+  transform: translateY(-4px);
+}
+
+/* Section Header Styling */
+.section-header {
+  margin-bottom: 3.5rem;
+}
+
+.section-subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--flutter-cyan);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  letter-spacing: -0.5px;
+}
+
+.title-underline {
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--flutter-cyan), var(--accent-teal));
+  margin: 1rem auto 0;
+  border-radius: var(--radius-full);
+}
+
+/* --------------------------------------------------------------------------
+   3. Header & Navigation Bar
+   -------------------------------------------------------------------------- */
+.navbar-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  padding: 1.25rem 0;
+  transition: var(--transition-fast);
+}
+
+.navbar-header.scrolled {
+  padding: 0.85rem 0;
+  background: rgba(10, 14, 23, 0.85);
+  backdrop-filter: var(--glass-backdrop);
+  -webkit-backdrop-filter: var(--glass-backdrop);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  gap: 1rem;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.brand-icon {
+  width: 38px;
+  height: 38px;
+  background: linear-gradient(135deg, var(--flutter-navy), var(--flutter-cyan));
+  color: #fff;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  box-shadow: 0 0 15px rgba(84, 197, 248, 0.4);
+}
+
+.brand-accent {
+  color: var(--flutter-cyan);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  flex: 1;
+  justify-content: center;
+}
+
+.nav-link {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  position: relative;
+  padding: 0.4rem 0.7rem;
+  white-space: nowrap;
+  border-radius: var(--radius-sm);
+  transition: var(--transition-fast);
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--flutter-cyan);
+  background: rgba(84, 197, 248, 0.07);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: var(--flutter-cyan);
+  transition: var(--transition-fast);
+  border-radius: var(--radius-full);
+}
+
+.nav-link.active::after,
+.nav-link:hover::after {
+  width: calc(100% - 1.4rem);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-shrink: 0;
+}
+
+/* Resume button in navbar */
+.btn-nav-resume {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--flutter-cyan);
+  border: 1px solid rgba(84, 197, 248, 0.4);
+  background: rgba(84, 197, 248, 0.08);
+  transition: var(--transition-fast);
+  white-space: nowrap;
+}
+
+.btn-nav-resume:hover {
+  background: rgba(84, 197, 248, 0.18);
+  border-color: var(--flutter-cyan);
+  box-shadow: 0 0 15px rgba(84, 197, 248, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn-nav-cta {
+  background: linear-gradient(135deg, var(--flutter-navy), var(--flutter-blue));
+  color: #fff;
+  padding: 0.5rem 1.1rem;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  box-shadow: 0 4px 15px rgba(1, 181, 216, 0.3);
+  white-space: nowrap;
+}
+
+.btn-nav-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(1, 181, 216, 0.5);
+}
+
+.mobile-toggle {
+  display: none;
+  font-size: 1.4rem;
+  color: var(--text-primary);
+  padding: 0.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   4. Hero Section
+   -------------------------------------------------------------------------- */
+.hero-section {
+  padding-top: 9.5rem;
+  padding-bottom: 4rem;
+}
+
+.hero-container {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 3.5rem;
+  align-items: center;
+  margin-bottom: 5rem;
+}
+
+.badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(84, 197, 248, 0.1);
+  border: 1px solid rgba(84, 197, 248, 0.25);
+  color: var(--flutter-cyan);
+  padding: 0.4rem 1.1rem;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent-teal);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent-teal);
+  animation: pulseDot 2s infinite;
+}
+
+.hero-title {
+  font-size: 3.25rem;
+  line-height: 1.15;
+  margin-bottom: 1.25rem;
+}
+
+.subtitle-role {
+  font-size: 2.2rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.hero-intro {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin-bottom: 2rem;
+  line-height: 1.7;
+}
+
+.highlight {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+/* Button Variants */
+.btn {
+  padding: 0.85rem 1.75rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.975rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  transition: var(--transition-normal);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--flutter-navy), var(--flutter-blue));
+  color: #fff;
+  box-shadow: 0 10px 25px rgba(1, 181, 216, 0.35);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(1, 181, 216, 0.5);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--flutter-cyan);
+  transform: translateY(-3px);
+}
+
+.btn-icon-copy {
+  background: rgba(84, 197, 248, 0.08);
+  border: 1px solid rgba(84, 197, 248, 0.2);
+  color: var(--flutter-cyan);
+  padding: 0.85rem 1.1rem;
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  position: relative;
+}
+
+.btn-icon-copy:hover {
+  background: rgba(84, 197, 248, 0.2);
+  box-shadow: var(--glow-cyan);
+}
+
+#copyTooltip {
+  position: absolute;
+  bottom: -32px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 0.75rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: var(--transition-fast);
+}
+
+.btn-icon-copy:hover #copyTooltip {
+  opacity: 1;
+}
+
+.hero-socials {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.hero-socials a {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.hero-socials a:hover {
+  color: var(--flutter-cyan);
+  border-color: var(--flutter-cyan);
+  background: rgba(84, 197, 248, 0.1);
+  transform: translateY(-3px);
+  box-shadow: var(--glow-cyan);
+}
+
+/* --------------------------------------------------------------------------
+   5. Interactive Smartphone Mockup Frame
+   -------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------
+   5. Creative Animated Hero Profile Showcase
+   -------------------------------------------------------------------------- */
+.hero-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.hero-creative-avatar-container {
+  position: relative;
+  width: 380px;
+  height: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ambient Pulsing Aura */
+.avatar-glow-ring {
+  position: absolute;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(84, 197, 248, 0.45) 0%, rgba(100, 255, 218, 0.2) 45%, transparent 70%);
+  filter: blur(35px);
+  animation: pulseAura 4s ease-in-out infinite alternate;
+  z-index: 1;
+}
+
+/* Conic Spinning Neon Border */
+.avatar-spinning-border {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  padding: 5px;
+  background: conic-gradient(from 0deg, #02569B, #01B5D8, #54C5F8, #64FFDA, #7C4DFF, #02569B);
+  animation: spinGlow 8s linear infinite;
+  z-index: 2;
+  box-shadow: 0 0 30px rgba(84, 197, 248, 0.4);
+}
+
+/* Profile Photo Box */
+.avatar-image-box {
+  position: relative;
+  width: 304px;
+  height: 304px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 5px solid #0A0E17;
+  background: var(--bg-secondary);
+  z-index: 3;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.hero-creative-avatar-container:hover .avatar-image-box {
+  transform: scale(1.04);
+}
+
+.creative-profile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.hero-creative-avatar-container:hover .creative-profile-img {
+  transform: scale(1.08);
+}
+
+/* Orbiting Glassmorphism Badges */
+.orbit-badge {
+  position: absolute;
+  z-index: 10;
+  padding: 0.65rem 1.1rem;
+  background: rgba(17, 24, 39, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(84, 197, 248, 0.35);
+  border-radius: var(--radius-full);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 15px rgba(84, 197, 248, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.orbit-badge:hover {
+  transform: scale(1.1) !important;
+  border-color: var(--accent-teal);
+  box-shadow: 0 12px 30px rgba(100, 255, 218, 0.4);
+}
+
+.badge-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+}
+
+.badge-icon.icon-flutter { background: rgba(84, 197, 248, 0.2); color: var(--flutter-cyan); }
+.badge-icon.icon-apps { background: rgba(100, 255, 218, 0.2); color: var(--accent-teal); }
+.badge-icon.icon-code { background: rgba(124, 77, 255, 0.2); color: var(--accent-purple); }
+.badge-icon.icon-edu { background: rgba(245, 158, 11, 0.2); color: #F59E0B; }
+
+.badge-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.badge-title {
+  font-size: 0.825rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.badge-sub {
+  font-size: 0.68rem;
+  color: var(--text-secondary);
+}
+
+/* Badge Positioning & Floating Animations */
+.badge-top-left {
+  top: 10px;
+  left: -25px;
+  animation: floatBadge1 4s ease-in-out infinite alternate;
+}
+
+.badge-top-right {
+  top: 30px;
+  right: -25px;
+  animation: floatBadge2 4.5s ease-in-out infinite alternate;
+}
+
+.badge-bottom-left {
+  bottom: 25px;
+  left: -35px;
+  animation: floatBadge3 5s ease-in-out infinite alternate;
+}
+
+.badge-bottom-right {
+  bottom: 15px;
+  right: -20px;
+  animation: floatBadge4 3.8s ease-in-out infinite alternate;
+}
+
+/* Experience Tag */
+.avatar-experience-badge {
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 12;
+  background: linear-gradient(135deg, var(--flutter-navy), var(--flutter-blue));
+  border: 2px solid var(--flutter-cyan);
+  padding: 0.4rem 1.2rem;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 10px 25px rgba(1, 181, 216, 0.5);
+}
+
+.exp-num {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.exp-txt {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.1;
+}
+
+/* Keyframe Animations */
+@keyframes spinGlow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pulseAura {
+  0% { transform: scale(0.95); opacity: 0.6; }
+  100% { transform: scale(1.12); opacity: 0.9; }
+}
+
+@keyframes floatBadge1 {
+  0% { transform: translateY(0px) rotate(0deg); }
+  100% { transform: translateY(-12px) rotate(-2deg); }
+}
+
+@keyframes floatBadge2 {
+  0% { transform: translateY(0px) rotate(0deg); }
+  100% { transform: translateY(-15px) rotate(2deg); }
+}
+
+@keyframes floatBadge3 {
+  0% { transform: translateY(0px) rotate(0deg); }
+  100% { transform: translateY(12px) rotate(-3deg); }
+}
+
+@keyframes floatBadge4 {
+  0% { transform: translateY(0px) rotate(0deg); }
+  100% { transform: translateY(10px) rotate(2deg); }
+}
+
+/* Hero Stats Bar */
+.hero-stats-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  background: rgba(17, 24, 39, 0.6);
+  backdrop-filter: var(--glass-backdrop);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem 2rem;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.stat-icon {
+  width: 50px;
+  height: 50px;
+  background: rgba(84, 197, 248, 0.1);
+  border: 1px solid rgba(84, 197, 248, 0.2);
+  color: var(--flutter-cyan);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+}
+
+.stat-info h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.stat-info p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   6. About Section
+   -------------------------------------------------------------------------- */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 2rem;
+}
+
+.about-card-main {
+  padding: 2.5rem;
+}
+
+.about-card-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--flutter-cyan);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.about-text {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.25rem;
+  line-height: 1.7;
+}
+
+.bio-highlights {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.highlight-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+.highlight-item i {
+  color: var(--flutter-cyan);
+  font-size: 1.1rem;
+}
+
+.about-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.about-profile-card {
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  background: linear-gradient(135deg, rgba(17, 24, 39, 0.9) 0%, rgba(2, 86, 155, 0.25) 100%);
+  border-color: rgba(84, 197, 248, 0.3);
+}
+
+.about-img-frame {
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
+  padding: 3px;
+  background: linear-gradient(135deg, var(--flutter-navy), var(--flutter-blue), var(--accent-teal));
+  box-shadow: 0 8px 20px rgba(1, 181, 216, 0.3);
+  flex-shrink: 0;
+}
+
+.about-img-frame img {
+  width: 100%;
+  height: 100%;
+  border-radius: 17px;
+  object-fit: cover;
+}
+
+.about-profile-info h4 {
+  font-size: 1.15rem;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.about-profile-info p {
+  font-size: 0.85rem;
+  color: var(--flutter-cyan);
+  font-weight: 500;
+}
+
+.objective-card {
+  padding: 2rem;
+  background: linear-gradient(145deg, rgba(2, 86, 155, 0.2) 0%, rgba(17, 24, 39, 0.8) 100%);
+  border-color: rgba(84, 197, 248, 0.3);
+}
+
+.objective-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  color: var(--flutter-cyan);
+}
+
+.objective-header i { font-size: 1.4rem; }
+.objective-header h3 { font-size: 1.3rem; }
+
+.objective-text {
+  font-size: 0.975rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+.achievements-card {
+  padding: 2rem;
+}
+
+.achievements-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.strengths-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.strengths-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.925rem;
+  color: var(--text-secondary);
+}
+
+.strengths-list i {
+  color: var(--accent-teal);
+  font-size: 0.85rem;
+}
+
+/* --------------------------------------------------------------------------
+   7. Skills Section
+   -------------------------------------------------------------------------- */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.skill-category-card {
+  padding: 2rem;
+}
+
+.full-width-skill {
+  grid-column: 1 / -1;
+}
+
+.category-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.category-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+.icon-flutter { background: rgba(84, 197, 248, 0.15); color: var(--flutter-cyan); }
+.icon-backend { background: rgba(124, 77, 255, 0.15); color: var(--accent-purple); }
+.icon-storage { background: rgba(100, 255, 218, 0.15); color: var(--accent-teal); }
+.icon-tools { background: rgba(245, 158, 11, 0.15); color: #F59E0B; }
+.icon-soft { background: rgba(244, 63, 94, 0.15); color: #F43F5E; }
+
+.skills-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.skill-tag {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-full);
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: var(--transition-fast);
+}
+
+.skill-tag:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--flutter-cyan);
+  transform: translateY(-2px);
+}
+
+.highlight-tag {
+  background: rgba(84, 197, 248, 0.1);
+  border-color: rgba(84, 197, 248, 0.3);
+  color: var(--flutter-cyan);
+}
+
+.accent-tag {
+  background: rgba(100, 255, 218, 0.1);
+  border-color: rgba(100, 255, 218, 0.3);
+  color: var(--accent-teal);
+}
+
+.skill-subgroup {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px dashed var(--border-color);
+}
+
+.subgroup-title {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   8. Featured Projects Section
+   -------------------------------------------------------------------------- */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.project-card {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-img-wrapper {
+  position: relative;
+  height: 230px;
+  overflow: hidden;
+  background: var(--bg-secondary);
+}
+
+.project-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.project-card:hover .project-img-wrapper img {
+  transform: scale(1.06);
+}
+
+.web-portfolio-preview {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.code-glow-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--flutter-cyan);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.code-glow-box i { font-size: 2.5rem; }
+
+.project-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(10, 14, 23, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-color);
+  color: var(--flutter-cyan);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.3rem 0.8rem;
+  border-radius: var(--radius-full);
+}
+
+.project-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 14, 23, 0.75);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: var(--transition-fast);
+}
+
+.project-card:hover .project-overlay {
+  opacity: 1;
+}
+
+.btn-view-project {
+  background: linear-gradient(135deg, var(--flutter-navy), var(--flutter-blue));
+  color: #fff;
+  padding: 0.7rem 1.4rem;
+  border-radius: var(--radius-full);
+  font-size: 0.875rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 15px rgba(1, 181, 216, 0.4);
+}
+
+.project-body {
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.project-title {
+  font-size: 1.3rem;
+  margin-bottom: 0.75rem;
+}
+
+.project-desc {
+  font-size: 0.925rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.25rem;
+  line-height: 1.6;
+  flex: 1;
+}
+
+.project-tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.project-tech-stack span {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius-sm);
+}
+
+.project-footer {
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.btn-link-action {
+  color: var(--flutter-cyan);
+  font-size: 0.875rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: var(--transition-fast);
+}
+
+.btn-link-action:hover {
+  gap: 0.7rem;
+}
+
+/* --------------------------------------------------------------------------
+   9. Experience & Education Timeline
+   -------------------------------------------------------------------------- */
+.timeline-wrapper {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.timeline-track {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  background: linear-gradient(180deg, var(--flutter-navy), var(--flutter-cyan), var(--accent-teal));
+  border-radius: var(--radius-full);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 3.5rem;
+  width: 50%;
+}
+
+.timeline-left {
+  padding-right: 3rem;
+  left: 0;
+}
+
+.timeline-right {
+  padding-left: 3rem;
+  left: 50%;
+}
+
+.timeline-dot {
+  position: absolute;
+  top: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--bg-primary);
+  border: 3px solid var(--flutter-cyan);
+  color: var(--flutter-cyan);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  box-shadow: 0 0 15px rgba(84, 197, 248, 0.4);
+  z-index: 2;
+}
+
+.timeline-left .timeline-dot {
+  right: -22px;
+}
+
+.timeline-right .timeline-dot {
+  left: -22px;
+}
+
+.timeline-content {
+  padding: 2rem;
+}
+
+.timeline-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.timeline-date {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--flutter-cyan);
+  font-weight: 600;
+}
+
+.timeline-tag {
+  background: rgba(255, 255, 255, 0.05);
+  font-size: 0.75rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+}
+
+.timeline-title {
+  font-size: 1.35rem;
+  margin-bottom: 0.25rem;
+}
+
+.timeline-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.timeline-bullets {
+  padding-left: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.timeline-bullets li {
+  font-size: 0.925rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   10. Services Section
+   -------------------------------------------------------------------------- */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.75rem;
+}
+
+.service-card {
+  padding: 2rem 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.service-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(84, 197, 248, 0.1);
+  border: 1px solid rgba(84, 197, 248, 0.25);
+  color: var(--flutter-cyan);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  margin-bottom: 1.25rem;
+  transition: var(--transition-fast);
+}
+
+.service-card:hover .service-icon {
+  background: linear-gradient(135deg, var(--flutter-navy), var(--flutter-blue));
+  color: #fff;
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(1, 181, 216, 0.4);
+}
+
+.service-card h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.75rem;
+}
+
+.service-card p {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   11. Contact Section & Form
+   -------------------------------------------------------------------------- */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 2.5rem;
+}
+
+.contact-info-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.contact-card {
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.c-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: var(--radius-md);
+  background: rgba(84, 197, 248, 0.1);
+  border: 1px solid rgba(84, 197, 248, 0.2);
+  color: var(--flutter-cyan);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}
+
+.c-details h4 {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 500;
+
+}
+
+.c-details p {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.btn-copy-small {
+  margin-left: auto;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  padding: 0.4rem;
+  border-radius: var(--radius-sm);
+  transition: var(--transition-fast);
+}
+
+.btn-copy-small:hover {
+  color: var(--flutter-cyan);
+  background: rgba(84, 197, 248, 0.1);
+}
+
+.social-connect-card {
+  padding: 1.75rem;
+}
+
+.social-connect-card h4 {
+  font-size: 1.1rem;
+  margin-bottom: 1.25rem;
+}
+
+.social-buttons-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.85rem;
+}
+
+.social-btn {
+  padding: 0.75rem;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  font-size: 0.875rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.social-btn:hover {
+  transform: translateY(-2px);
+}
+
+.social-btn.linkedin:hover { background: #0A66C2; border-color: #0A66C2; color: #fff; }
+.social-btn.github:hover { background: #24292E; border-color: #24292E; color: #fff; }
+.social-btn.facebook:hover { background: #1877F2; border-color: #1877F2; color: #fff; }
+.social-btn.email:hover { background: var(--flutter-navy); border-color: var(--flutter-cyan); color: #fff; }
+
+/* Contact Form Styling */
+.contact-form {
+  padding: 2.5rem;
+}
+
+.contact-form h3 {
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.form-subtext {
+  font-size: 0.925rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrapper i {
+  position: absolute;
+  left: 1rem;
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+.input-wrapper input,
+.input-wrapper textarea {
+  width: 100%;
+  background: rgba(10, 14, 23, 0.8);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem 0.85rem 2.8rem;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  transition: var(--transition-fast);
+}
+
+.input-wrapper textarea {
+  padding-left: 2.8rem;
+  resize: vertical;
+}
+
+.input-wrapper input:focus,
+.input-wrapper textarea:focus {
+  outline: none;
+  border-color: var(--flutter-cyan);
+  box-shadow: 0 0 15px rgba(84, 197, 248, 0.25);
+}
+
+.error-msg {
+  display: none;
+  font-size: 0.75rem;
+  color: #F43F5E;
+  margin-top: 0.4rem;
+}
+
+.form-group.error .error-msg {
+  display: block;
+}
+
+.form-group.error .input-wrapper input,
+.form-group.error .input-wrapper textarea {
+  border-color: #F43F5E;
+}
+
+.btn-submit {
+  width: 100%;
+  justify-content: center;
+  padding: 1rem;
+  margin-top: 0.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   12. Footer & Floating Back To Top
+   -------------------------------------------------------------------------- */
+.footer {
+  background: #060911;
+  border-top: 1px solid var(--border-color);
+  padding: 3rem 0;
+  margin-top: 4rem;
+}
+
+.footer-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.footer-brand p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 0.4rem;
+}
+
+.footer-copy {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.footer-socials {
+  display: flex;
+  gap: 1rem;
+}
+
+.footer-socials a {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
+
+.footer-socials a:hover {
+  color: var(--flutter-cyan);
+}
+
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--flutter-navy), var(--flutter-blue));
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 20px rgba(1, 181, 216, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: var(--transition-normal);
+  z-index: 90;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.back-to-top:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(1, 181, 216, 0.6);
+}
+
+/* --------------------------------------------------------------------------
+   13. Modals & Toast Notifications
+   -------------------------------------------------------------------------- */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 14, 23, 0.85);
+  backdrop-filter: blur(10px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: var(--transition-normal);
+}
+
+.modal-backdrop.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal-dialog {
+  width: 100%;
+  max-width: 650px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  padding: 2.5rem;
+  transform: translateY(20px);
+  transition: var(--transition-normal);
+}
+
+.modal-backdrop.active .modal-dialog {
+  transform: translateY(0);
+}
+
+.modal-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.modal-close:hover {
+  background: rgba(244, 63, 94, 0.2);
+  color: #F43F5E;
+}
+
+/* Toast Popup */
+.toast-notification {
+  position: fixed;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--bg-secondary);
+  border: 1px solid var(--flutter-cyan);
+  box-shadow: var(--glow-cyan);
+  padding: 0.85rem 1.75rem;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  z-index: 300;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.toast-notification.show {
+  transform: translateX(-50%) translateY(0);
+}
+
+.toast-notification i {
+  color: var(--accent-teal);
+  font-size: 1.2rem;
+}
+
+/* --------------------------------------------------------------------------
+   14. Animations
+   -------------------------------------------------------------------------- */
+@keyframes pulseGlow {
+  0% { transform: scale(1) translate(0, 0); }
+  50% { transform: scale(1.15) translate(30px, -20px); }
+  100% { transform: scale(0.95) translate(-20px, 30px); }
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.3); }
+}
+
+/* --------------------------------------------------------------------------
+   15. Responsive Queries
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .hero-container {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .hero-visual {
+    order: -1;
+  }
+
+  .hero-stats-bar {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .about-grid, .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .section { padding: 4.5rem 0; }
+  
+  .mobile-toggle { display: block; }
+  
+  .nav-links {
+    position: fixed;
+    top: 72px;
+    left: 0;
+    width: 100%;
+    background: rgba(10, 14, 23, 0.95);
+    backdrop-filter: var(--glass-backdrop);
+    border-bottom: 1px solid var(--border-color);
+    flex-direction: column;
+    padding: 2rem 1.5rem;
+    gap: 1.5rem;
+    transform: translateY(-150%);
+    transition: var(--transition-normal);
+  }
+
+  .nav-links.mobile-active {
+    transform: translateY(0);
+  }
+
+  .hero-title { font-size: 2.35rem; }
+  .subtitle-role { font-size: 1.6rem; }
+  
+  .projects-grid { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: 1fr; }
+  
+  /* Timeline responsive adjustment */
+  .timeline-track { left: 20px; }
+  .timeline-item { width: 100%; padding-left: 3.5rem; padding-right: 0; }
+  .timeline-right { left: 0; }
+  .timeline-left .timeline-dot, .timeline-right .timeline-dot { left: 0; }
+  
+  .social-buttons-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .hero-stats-bar { grid-template-columns: 1fr; }
+  .services-grid { grid-template-columns: 1fr; }
+}
+
+/* --------------------------------------------------------------------------
+   INTERACTIVE APP SIMULATOR STYLING
+   -------------------------------------------------------------------------- */
+.simulator-section {
+  background: radial-gradient(circle at 50% 30%, rgba(2, 86, 155, 0.15) 0%, transparent 70%);
+}
+
+.simulator-app-selector {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.sim-selector-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.65rem 1.25rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-full);
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: var(--transition-fast);
+}
+
+.sim-selector-btn i {
+  font-size: 1rem;
+  color: var(--flutter-cyan);
+}
+
+.sim-selector-btn:hover {
+  border-color: var(--border-highlight);
+  color: var(--text-primary);
+  transform: translateY(-2px);
+}
+
+.sim-selector-btn.active {
+  background: linear-gradient(135deg, rgba(84,197,248,0.2), rgba(1,181,216,0.25));
+  border-color: var(--flutter-cyan);
+  color: var(--text-primary);
+  box-shadow: var(--glow-cyan);
+}
+
+.simulator-wrapper {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 3rem;
+  align-items: center;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+@media (max-width: 900px) {
+  .simulator-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* REALISTIC SMARTPHONE MOCKUP */
+.phone-device-container {
+  display: flex;
+  justify-content: center;
+}
+
+.phone-frame {
+  width: 310px;
+  height: 620px;
+  background: #090D14;
+  border-radius: 42px;
+  border: 9px solid #1E293B;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 35px rgba(84, 197, 248, 0.25);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.phone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110px;
+  height: 22px;
+  background: #1E293B;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.speaker-earpiece {
+  width: 36px;
+  height: 4px;
+  background: #0F172A;
+  border-radius: 2px;
+}
+
+.camera-lens {
+  width: 8px;
+  height: 8px;
+  background: #0F172A;
+  border-radius: 50%;
+  box-shadow: inset 0 0 2px rgba(255,255,255,0.3);
+}
+
+.phone-status-bar {
+  height: 38px;
+  padding: 8px 16px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  z-index: 5;
+  background: rgba(10, 14, 23, 0.8);
+}
+
+.status-icons {
+  display: flex;
+  gap: 6px;
+  font-size: 0.7rem;
+}
+
+.phone-screen-viewport {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.85rem;
+  background: #0B111E;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.phone-home-indicator {
+  height: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(10, 14, 23, 0.8);
+}
+
+.phone-home-indicator::after {
+  content: '';
+  width: 90px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+}
+
+/* SIMULATOR SIDEBAR CARD */
+.simulator-info-card {
+  padding: 2.25rem;
+}
+
+.sim-info-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: rgba(84, 197, 248, 0.15);
+  border: 1px solid rgba(84, 197, 248, 0.3);
+  color: var(--flutter-cyan);
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+  margin-bottom: 0.75rem;
+}
+
+.sim-info-title {
+  font-size: 1.8rem;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.sim-info-desc {
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.sim-arch-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.75rem;
+}
+
+.sim-arch-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.sim-arch-item i {
+  color: var(--accent-teal);
+  margin-top: 0.25rem;
+}
+
+.sim-arch-item span {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+}
+
+/* SIMULATED PHONE SCREEN UI COMPONENTS */
+.sim-app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.sim-app-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.sim-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  transition: var(--transition-fast);
+}
+
+.sim-card:hover {
+  border-color: var(--border-highlight);
+  background: rgba(84, 197, 248, 0.08);
+}
+
+.sim-chips-row {
+  display: flex;
+  gap: 0.4rem;
+  overflow-x: auto;
+  padding-bottom: 0.2rem;
+}
+
+.sim-chip {
+  padding: 0.35rem 0.65rem;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.sim-chip.active {
+  background: var(--flutter-cyan);
+  color: #0A0E17;
+  font-weight: 600;
+  border-color: var(--flutter-cyan);
+}
+
+.sim-task-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.55rem 0.75rem;
+  background: rgba(255,255,255,0.04);
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.sim-task-item.completed span {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+/* --------------------------------------------------------------------------
+   PROJECT CATEGORY FILTERS & GITHUB LINKS
+   -------------------------------------------------------------------------- */
+.project-filters-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+}
+
+.project-filters {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  background: rgba(17, 24, 39, 0.6);
+  padding: 0.4rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-color);
+}
+
+.filter-btn {
+  padding: 0.55rem 1.1rem;
+  border-radius: var(--radius-full);
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition: var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.filter-btn:hover {
+  color: var(--text-primary);
+}
+
+.filter-btn.active {
+  background: var(--flutter-cyan);
+  color: #0A0E17;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(84, 197, 248, 0.4);
+}
+
+.project-gh-link {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  transition: var(--transition-fast);
+}
+
+.project-gh-link:hover {
+  background: var(--flutter-cyan);
+  color: #0A0E17;
+  transform: scale(1.1);
+}
+
+/* --------------------------------------------------------------------------
+   CLEAN CODE & ARCHITECTURE SHOWCASE
+   -------------------------------------------------------------------------- */
+.code-showcase-section {
+  background: radial-gradient(circle at 80% 50%, rgba(124, 77, 255, 0.1) 0%, transparent 60%);
+}
+
+.code-editor-container {
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+}
+
+.editor-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.25rem;
+  background: rgba(15, 23, 42, 0.9);
+  border-bottom: 1px solid var(--border-color);
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.editor-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+.dot-red { background: #FF5F56; }
+.dot-yellow { background: #FFBD2E; }
+.dot-green { background: #27C93F; }
+
+.editor-tabs {
+  display: flex;
+  gap: 0.4rem;
+  overflow-x: auto;
+}
+
+.code-tab {
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: var(--transition-fast);
+}
+
+.code-tab:hover {
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.code-tab.active {
+  background: rgba(84, 197, 248, 0.15);
+  color: var(--flutter-cyan);
+  border: 1px solid rgba(84, 197, 248, 0.3);
+}
+
+.btn-copy-code {
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: var(--transition-fast);
+}
+
+.btn-copy-code:hover {
+  background: var(--flutter-cyan);
+  color: #0A0E17;
+}
+
+.editor-body {
+  padding: 1.5rem;
+  background: #070A12;
+  overflow-x: auto;
+  max-height: 480px;
+}
+
+.code-block {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: #E2E8F0;
+}
+
+/* Syntax Highlighting Colors */
+.code-kw { color: #F472B6; font-weight: 600; }
+.code-type { color: #38BDF8; }
+.code-func { color: #A78BFA; }
+.code-str { color: #34D399; }
+.code-cmnt { color: #64748B; font-style: italic; }
+.code-ann { color: #FBBF24; }
+
+/* --------------------------------------------------------------------------
+   RESUME MODAL STYLING
+   -------------------------------------------------------------------------- */
+/* (btn-nav-resume is defined in the navbar section above) */
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: var(--transition-fast);
+}
+
+.btn-outline:hover {
+  border-color: var(--flutter-cyan);
+  color: var(--flutter-cyan);
+}
+
+.resume-modal-dialog {
+  max-width: 800px;
+  width: 92%;
+  padding: 2rem;
+  max-height: 88vh;
+  overflow-y: auto;
+}
+
+.resume-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.resume-title-box {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.resume-title-box i {
+  font-size: 2rem;
+  color: var(--flutter-cyan);
+}
+
+.resume-document {
+  background: #0B111E;
+  border-radius: var(--radius-md);
+  padding: 1.75rem;
+  border: 1px solid var(--border-color);
+}
+
+.resume-doc-header {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.resume-doc-header h1 {
+  font-size: 1.8rem;
+  color: var(--flutter-cyan);
+}
+
+.resume-subtitle {
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-bottom: 0.6rem;
+}
+
+.resume-contacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.resume-section {
+  margin-bottom: 1.5rem;
+}
+
+.resume-section h3 {
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.resume-skills-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.resume-list {
+  padding-left: 1.25rem;
+  color: var(--text-secondary);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+}
+
