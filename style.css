@@ -224,8 +224,12 @@ button {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 100;
+  z-index: 1000;
   padding: 1.25rem 0;
+  background: rgba(10, 14, 23, 0.95);
+  backdrop-filter: var(--glass-backdrop);
+  -webkit-backdrop-filter: var(--glass-backdrop);
+  border-bottom: 1px solid var(--border-color);
   transition: var(--transition-fast);
 }
 
@@ -2277,6 +2281,7 @@ button {
   align-items: center;
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
+  padding-right: 3.5rem;
   border-bottom: 1px solid var(--border-color);
   flex-wrap: wrap;
   gap: 1rem;
@@ -2355,3 +2360,65 @@ button {
   font-size: 0.9rem;
 }
 
+@media print {
+  /* Hide all top-level elements except the resume modal */
+  body > *:not(#resumeModal) {
+    display: none !important;
+  }
+  
+  /* Reset modal positioning and background for printing */
+  #resumeModal {
+    display: block !important;
+    position: relative !important;
+    background: white !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .resume-modal-dialog {
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .resume-document {
+    border: none !important;
+    background: white !important;
+    padding: 0 !important;
+  }
+
+  /* Hide UI buttons inside the modal */
+  .modal-close, #printResumeBtn, .resume-title-box {
+    display: none !important;
+  }
+
+  /* Force dark text for readability */
+  .resume-document, .resume-document * {
+    color: black !important;
+  }
+  
+  .resume-doc-header h1 {
+    color: black !important;
+  }
+  
+  .resume-subtitle {
+    color: #333 !important;
+  }
+  
+  .resume-contacts {
+    color: #555 !important;
+  }
+  
+  .resume-section h3 {
+    color: black !important;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+  }
+  
+  .resume-skills-grid, .resume-list {
+    color: black !important;
+  }
+}

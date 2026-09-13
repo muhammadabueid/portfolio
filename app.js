@@ -171,155 +171,82 @@ document.addEventListener('DOMContentLoaded', () => {
   const simSelectorBtns = document.querySelectorAll('.sim-selector-btn');
 
   const simulatorApps = {
-    skincare: {
-      badge: "State Management • Provider",
-      title: "Skin Care Advisor App",
-      desc: "Personalized skincare diagnostic & product recommendation app built with Flutter & Provider pattern. Allows users to test skin sensitivity and browse curated routines.",
+    azkar: {
+      badge: "Islamic App • Flutter & BLoC",
+      title: "Azkar App",
+      desc: "A cross-platform Flutter app providing daily Islamic Azkar and supplications. Features a clean, minimal UI with categorized Azkar, counter functionality, and offline-first architecture.",
       arch: [
-        "Reactive state management using Provider & ChangeNotifier",
-        "Clean Material 3 UI design with custom theme gradients",
-        "Filtering engine by skin type (Dry, Oily, Sensitive, Combination)"
+        "BLoC state management for reactive prayer counter",
+        "Offline-first with local Hive storage for Azkar data",
+        "Clean UI with dark/light mode and Arabic text rendering"
       ],
       screenHtml: `
         <div class="sim-app-header">
-          <div class="sim-app-title"><i class="fa-solid fa-spa" style="color:#54C5F8;"></i> Skin Care Advisor</div>
-          <i class="fa-solid fa-bell" style="font-size:0.8rem; opacity:0.6;"></i>
+          <div class="sim-app-title"><i class="fa-solid fa-moon" style="color:#54C5F8;"></i> Azkar App</div>
+          <i class="fa-solid fa-gear" style="font-size:0.8rem; opacity:0.6;"></i>
         </div>
-        <div style="font-size:0.75rem; color:#9CA3AF;">Select Skin Type:</div>
-        <div class="sim-chips-row" id="skinTypeChips">
-          <span class="sim-chip active" data-type="Dry">Dry Skin</span>
-          <span class="sim-chip" data-type="Oily">Oily Skin</span>
-          <span class="sim-chip" data-type="Sensitive">Sensitive</span>
-          <span class="sim-chip" data-type="Combination">Combination</span>
+        <div class="sim-chips-row" id="azkarCategoryChips">
+          <span class="sim-chip active" data-cat="Morning">Morning</span>
+          <span class="sim-chip" data-cat="Evening">Evening</span>
+          <span class="sim-chip" data-cat="Sleep">Sleep</span>
+          <span class="sim-chip" data-cat="Prayer">Prayer</span>
         </div>
-        <div id="simProductContainer" style="display:flex; flex-direction:column; gap:0.5rem; margin-top:0.3rem;">
-          <div class="sim-card">
-            <div style="font-weight:600; font-size:0.82rem; color:#54C5F8;">Hydrating Hyaluronic Serum</div>
-            <div style="font-size:0.72rem; color:#9CA3AF;">Deep moisture barrier boost • Morning Routine</div>
-            <div style="font-weight:700; font-size:0.8rem; color:#64FFDA; margin-top:0.2rem;">★ 4.9 (128 reviews)</div>
+        <div style="display:flex; flex-direction:column; gap:0.5rem; margin-top:0.3rem;" id="azkarList">
+          <div class="sim-card" style="border-right:3px solid #54C5F8; text-align:right;">
+            <div style="font-weight:700; font-size:0.82rem; color:#E2E8F0; direction:rtl;">أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّه</div>
+            <div style="font-size:0.7rem; color:#9CA3AF; margin-top:0.2rem;">Morning Azkar • 1×</div>
+            <div id="azkarCounter" style="font-weight:700; font-size:0.85rem; color:#54C5F8; margin-top:0.3rem;">Count: 0 / 1</div>
           </div>
-          <div class="sim-card">
-            <div style="font-weight:600; font-size:0.82rem; color:#54C5F8;">Ceramide Gentle Cleanser</div>
-            <div style="font-size:0.72rem; color:#9CA3AF;">pH balanced non-stripping formula</div>
-            <div style="font-weight:700; font-size:0.8rem; color:#64FFDA; margin-top:0.2rem;">★ 4.8 (95 reviews)</div>
+          <div class="sim-card" style="border-right:3px solid #64FFDA; text-align:right;">
+            <div style="font-weight:700; font-size:0.82rem; color:#E2E8F0; direction:rtl;">سُبْحَانَ اللَّهِ وَبِحَمْدِهِ</div>
+            <div style="font-size:0.7rem; color:#9CA3AF; margin-top:0.2rem;">Morning Azkar • 100×</div>
           </div>
         </div>
-        <button id="simDiagnoseBtn" style="margin-top:auto; background:linear-gradient(135deg, #54C5F8, #01B5D8); color:#0A0E17; border:none; padding:0.55rem; border-radius:8px; font-weight:700; font-size:0.8rem; cursor:pointer;">
-          Diagnose My Skin <i class="fa-solid fa-wand-magic-sparkles"></i>
+        <button id="simAzkarCountBtn" style="margin-top:auto; background:linear-gradient(135deg, #54C5F8, #01B5D8); color:#0A0E17; border:none; padding:0.55rem; border-radius:8px; font-weight:700; font-size:0.8rem; cursor:pointer;">
+          Tap to Count <i class="fa-solid fa-hand-point-up"></i>
         </button>
       `
     },
-    taskmanager: {
-      badge: "Local NoSQL DB • Hive",
-      title: "Task Manager App",
-      desc: "Offline-first productivity mobile app built with Flutter and Hive DB. Features task scheduling, instant local disk persistence, and completion analytics.",
+    motora: {
+      badge: "Roadside Assistance • Firebase & Maps",
+      title: "Motora App",
+      desc: "A smart Flutter-based roadside assistance platform connecting drivers with verified mechanics and tow operators through real-time location, intelligent matching, and seamless service management.",
       arch: [
-        "Hive NoSQL database for key-value & typed task model storage",
-        "Instant CRUD operations with auto-sync listeners",
-        "Responsive grid & interactive task progress tracker"
+        "Real-time location tracking with Google Maps API",
+        "Firebase Firestore for live mechanic/driver matching",
+        "BLoC pattern for complex service request state flows"
       ],
       screenHtml: `
         <div class="sim-app-header">
-          <div class="sim-app-title"><i class="fa-solid fa-list-check" style="color:#54C5F8;"></i> Daily Tasks</div>
-          <span style="background:rgba(84,197,248,0.2); color:#54C5F8; font-size:0.7rem; padding:0.1rem 0.4rem; border-radius:99px; font-weight:600;">Hive DB</span>
+          <div class="sim-app-title"><i class="fa-solid fa-car-side" style="color:#54C5F8;"></i> Motora</div>
+          <span style="background:rgba(100,255,218,0.2); color:#64FFDA; font-size:0.65rem; padding:0.1rem 0.4rem; border-radius:99px; font-weight:600;">LIVE</span>
         </div>
-        <div style="background:rgba(255,255,255,0.05); padding:0.6rem; border-radius:10px; border:1px solid rgba(255,255,255,0.08);">
-          <div style="display:flex; justify-space-between; align-items:center; font-size:0.75rem; margin-bottom:0.3rem;">
-            <span>Completed Today</span>
-            <span id="taskProgressTxt" style="color:#64FFDA; font-weight:700;">2 of 3</span>
-          </div>
-          <div style="height:6px; background:rgba(255,255,255,0.1); border-radius:3px; overflow:hidden;">
-            <div id="taskProgressBar" style="width:66%; height:100%; background:linear-gradient(90deg, #54C5F8, #64FFDA);"></div>
-          </div>
+        <div style="background:rgba(84,197,248,0.08); border:1px solid rgba(84,197,248,0.2); border-radius:10px; padding:0.6rem; text-align:center;">
+          <i class="fa-solid fa-location-dot" style="color:#54C5F8; font-size:1.2rem;"></i>
+          <div style="font-size:0.75rem; color:#E2E8F0; font-weight:600; margin-top:0.2rem;">Damanhur, Egypt</div>
+          <div style="font-size:0.65rem; color:#9CA3AF;">GPS Active • Searching nearby...</div>
         </div>
-        <div style="display:flex; flex-direction:column; gap:0.4rem; margin-top:0.4rem;" id="simTaskList">
-          <div class="sim-task-item completed" data-id="1">
-            <span><i class="fa-regular fa-circle-check" style="color:#64FFDA;"></i> Finalize CS Graduation Thesis</span>
-            <span style="font-size:0.65rem; background:rgba(255,255,255,0.1); padding:0.1rem 0.3rem; border-radius:4px;">High</span>
+        <div style="font-size:0.72rem; color:#9CA3AF; margin-top:0.4rem;">Available Mechanics Nearby:</div>
+        <div style="display:flex; flex-direction:column; gap:0.4rem;" id="simMechanicList">
+          <div class="sim-card" style="display:flex; align-items:center; gap:0.5rem; cursor:pointer;" data-name="Ahmed" data-dist="0.8 km">
+            <i class="fa-solid fa-wrench" style="color:#54C5F8; font-size:1rem;"></i>
+            <div style="flex:1;">
+              <div style="font-size:0.8rem; font-weight:600; color:#E2E8F0;">Ahmed (Mechanic)</div>
+              <div style="font-size:0.67rem; color:#9CA3AF;">0.8 km away • ★ 4.9</div>
+            </div>
+            <span style="font-size:0.65rem; background:rgba(100,255,218,0.15); color:#64FFDA; padding:0.15rem 0.4rem; border-radius:4px;">Available</span>
           </div>
-          <div class="sim-task-item completed" data-id="2">
-            <span><i class="fa-regular fa-circle-check" style="color:#64FFDA;"></i> Refactor Flutter Provider Code</span>
-            <span style="font-size:0.65rem; background:rgba(255,255,255,0.1); padding:0.1rem 0.3rem; border-radius:4px;">Medium</span>
-          </div>
-          <div class="sim-task-item" data-id="3">
-            <span><i class="fa-regular fa-circle" style="color:#9CA3AF;"></i> Deploy Portfolio App Update</span>
-            <span style="font-size:0.65rem; background:rgba(84,197,248,0.2); color:#54C5F8; padding:0.1rem 0.3rem; border-radius:4px;">Urgent</span>
-          </div>
-        </div>
-        <button id="simAddTaskBtn" style="margin-top:auto; background:rgba(255,255,255,0.08); border:1px dashed rgba(84,197,248,0.4); color:#54C5F8; padding:0.5rem; border-radius:8px; font-weight:600; font-size:0.78rem; cursor:pointer;">
-          + Add New Task (Hive DB)
-        </button>
-      `
-    },
-    weather: {
-      badge: "Networking • REST API",
-      title: "Weather Forecast App",
-      desc: "Live meteorological forecast app consuming OpenWeather REST APIs. Displays dynamic weather conditions, wind speed, UV index, and extended forecasts.",
-      arch: [
-        "HTTP REST client with error handling & JSON model parsing",
-        "Geolocation service for automatic local weather detection",
-        "Dynamic UI visual themes shifting with weather conditions"
-      ],
-      screenHtml: `
-        <div class="sim-app-header">
-          <div class="sim-app-title"><i class="fa-solid fa-location-dot" style="color:#54C5F8;"></i> Damanhur, Egypt</div>
-          <i class="fa-solid fa-rotate-right" style="font-size:0.8rem; opacity:0.6;"></i>
-        </div>
-        <div style="text-align:center; padding:0.8rem 0;">
-          <i class="fa-solid fa-cloud-sun" style="font-size:2.8rem; color:#FBBF24; filter:drop-shadow(0 0 10px rgba(251,191,36,0.4));"></i>
-          <div style="font-size:2.2rem; font-weight:800; color:#F3F4F6; margin-top:0.2rem;" id="simWeatherTemp">28°C</div>
-          <div style="font-size:0.8rem; color:#9CA3AF;" id="simWeatherDesc">Partly Cloudy • Humidity 54%</div>
-        </div>
-        <div style="display:flex; justify-space-between; gap:0.4rem;">
-          <div class="sim-card" style="flex:1; text-align:center; padding:0.5rem;">
-            <div style="font-size:0.68rem; color:#9CA3AF;">Wind</div>
-            <div style="font-weight:700; font-size:0.8rem; color:#54C5F8;">14 km/h</div>
-          </div>
-          <div class="sim-card" style="flex:1; text-align:center; padding:0.5rem;">
-            <div style="font-size:0.68rem; color:#9CA3AF;">UV Index</div>
-            <div style="font-weight:700; font-size:0.8rem; color:#64FFDA;">Low 2</div>
-          </div>
-          <div class="sim-card" style="flex:1; text-align:center; padding:0.5rem;">
-            <div style="font-size:0.68rem; color:#9CA3AF;">Pressure</div>
-            <div style="font-weight:700; font-size:0.8rem; color:#54C5F8;">1014 hPa</div>
+          <div class="sim-card" style="display:flex; align-items:center; gap:0.5rem; cursor:pointer;" data-name="Karim" data-dist="1.5 km">
+            <i class="fa-solid fa-truck-pickup" style="color:#A855F7; font-size:1rem;"></i>
+            <div style="flex:1;">
+              <div style="font-size:0.8rem; font-weight:600; color:#E2E8F0;">Karim (Tow Truck)</div>
+              <div style="font-size:0.67rem; color:#9CA3AF;">1.5 km away • ★ 4.7</div>
+            </div>
+            <span style="font-size:0.65rem; background:rgba(168,85,247,0.15); color:#A855F7; padding:0.15rem 0.4rem; border-radius:4px;">Available</span>
           </div>
         </div>
-        <div style="font-size:0.75rem; color:#9CA3AF; margin-top:0.3rem;">Quick Search City:</div>
-        <div style="display:flex; gap:0.3rem;" id="simCityBtns">
-          <button class="sim-chip active" data-city="Cairo" data-temp="32°C" data-desc="Sunny">Cairo</button>
-          <button class="sim-chip" data-city="Alexandria" data-temp="26°C" data-desc="Sea Breeze">Alexandria</button>
-          <button class="sim-chip" data-city="London" data-temp="18°C" data-desc="Light Rain">London</button>
-        </div>
-      `
-    },
-    notes: {
-      badge: "Storage & Search • Hive",
-      title: "Notes Application",
-      desc: "Fast note-taking application utilizing Hive NoSQL database. Supports color tag categories, real-time search, and distraction-free writing interface.",
-      arch: [
-        "Ultra-fast disk read/write throughput powered by Hive",
-        "Real-time title & content search indexing",
-        "Color-coded note cards with custom tag filters"
-      ],
-      screenHtml: `
-        <div class="sim-app-header">
-          <div class="sim-app-title"><i class="fa-solid fa-note-sticky" style="color:#54C5F8;"></i> My Notes</div>
-          <i class="fa-solid fa-magnifying-glass" style="font-size:0.8rem; opacity:0.6;"></i>
-        </div>
-        <div style="display:flex; flex-direction:column; gap:0.5rem;" id="simNotesContainer">
-          <div class="sim-card" style="border-left:3px solid #54C5F8;">
-            <div style="font-weight:700; font-size:0.82rem; color:#F3F4F6;">Flutter Clean Architecture Rules</div>
-            <div style="font-size:0.72rem; color:#9CA3AF; margin-top:0.2rem;">Separate Data, Domain, and Presentation layers for maximum testability...</div>
-            <span style="font-size:0.62rem; background:rgba(84,197,248,0.15); color:#54C5F8; padding:0.1rem 0.3rem; border-radius:3px; display:inline-block; margin-top:0.4rem;">Flutter</span>
-          </div>
-          <div class="sim-card" style="border-left:3px solid #64FFDA;">
-            <div style="font-weight:700; font-size:0.82rem; color:#F3F4F6;">Provider vs Bloc State Management</div>
-            <div style="font-size:0.72rem; color:#9CA3AF; margin-top:0.2rem;">Use Provider for straightforward apps and Bloc/Cubit for complex event streams...</div>
-            <span style="font-size:0.62rem; background:rgba(100,255,218,0.15); color:#64FFDA; padding:0.1rem 0.3rem; border-radius:3px; display:inline-block; margin-top:0.4rem;">Architecture</span>
-          </div>
-        </div>
-        <button id="simAddNoteBtn" style="margin-top:auto; background:linear-gradient(135deg, #7C4DFF, #54C5F8); color:#FFF; border:none; padding:0.5rem; border-radius:8px; font-weight:700; font-size:0.8rem; cursor:pointer;">
-          + Create Note
+        <button id="simRequestBtn" style="margin-top:auto; background:linear-gradient(135deg, #A855F7, #54C5F8); color:#FFF; border:none; padding:0.55rem; border-radius:8px; font-weight:700; font-size:0.8rem; cursor:pointer;">
+          Request Assistance <i class="fa-solid fa-paper-plane"></i>
         </button>
       `
     }
@@ -358,78 +285,40 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function attachSimulatorInteractiveHandlers(appKey) {
-    if (appKey === 'skincare') {
-      const skinChips = phoneViewport.querySelectorAll('#skinTypeChips .sim-chip');
-      skinChips.forEach(chip => {
+    if (appKey === 'azkar') {
+      const categoryChips = phoneViewport.querySelectorAll('#azkarCategoryChips .sim-chip');
+      categoryChips.forEach(chip => {
         chip.addEventListener('click', () => {
-          skinChips.forEach(c => c.classList.remove('active'));
+          categoryChips.forEach(c => c.classList.remove('active'));
           chip.classList.add('active');
-          const type = chip.getAttribute('data-type');
-          showToast(`Filtered skincare products for ${type} skin!`);
+          showToast(`Loaded ${chip.getAttribute('data-cat')} Azkar!`);
         });
       });
 
-      const diagnoseBtn = phoneViewport.querySelector('#simDiagnoseBtn');
-      if (diagnoseBtn) {
-        diagnoseBtn.addEventListener('click', () => {
-          showToast("Running Skin Diagnostic Questionnaire...");
+      let count = 0;
+      const countBtn = phoneViewport.querySelector('#simAzkarCountBtn');
+      const counterDisplay = phoneViewport.querySelector('#azkarCounter');
+      if (countBtn) {
+        countBtn.addEventListener('click', () => {
+          count = (count + 1) % 2;
+          if (counterDisplay) counterDisplay.textContent = `Count: ${count} / 1`;
+          if (count === 1) showToast('Azkar completed! ✓');
         });
       }
-    } else if (appKey === 'taskmanager') {
-      const taskItems = phoneViewport.querySelectorAll('#simTaskList .sim-task-item');
-      taskItems.forEach(item => {
+    } else if (appKey === 'motora') {
+      const mechanicItems = phoneViewport.querySelectorAll('#simMechanicList .sim-card');
+      mechanicItems.forEach(item => {
         item.addEventListener('click', () => {
-          item.classList.toggle('completed');
-          const icon = item.querySelector('i');
-          if (item.classList.contains('completed')) {
-            icon.className = 'fa-regular fa-circle-check';
-            icon.style.color = '#64FFDA';
-          } else {
-            icon.className = 'fa-regular fa-circle';
-            icon.style.color = '#9CA3AF';
-          }
-          // Recalculate completed count
-          const completedCount = phoneViewport.querySelectorAll('#simTaskList .sim-task-item.completed').length;
-          const totalCount = taskItems.length;
-          const progressTxt = phoneViewport.querySelector('#taskProgressTxt');
-          const progressBar = phoneViewport.querySelector('#taskProgressBar');
-          if (progressTxt) progressTxt.textContent = `${completedCount} of ${totalCount}`;
-          if (progressBar) progressBar.style.width = `${(completedCount / totalCount) * 100}%`;
-          showToast("Hive DB updated task completion state!");
+          const name = item.getAttribute('data-name');
+          const dist = item.getAttribute('data-dist');
+          showToast(`Connecting to ${name} (${dist})...`);
         });
       });
 
-      const addTaskBtn = phoneViewport.querySelector('#simAddTaskBtn');
-      if (addTaskBtn) {
-        addTaskBtn.addEventListener('click', () => {
-          showToast("Added new task entry to Hive Local Database!");
-        });
-      }
-    } else if (appKey === 'weather') {
-      const cityBtns = phoneViewport.querySelectorAll('#simCityBtns .sim-chip');
-      cityBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          cityBtns.forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          const temp = btn.getAttribute('data-temp');
-          const desc = btn.getAttribute('data-desc');
-          const city = btn.getAttribute('data-city');
-
-          const tempEl = phoneViewport.querySelector('#simWeatherTemp');
-          const descEl = phoneViewport.querySelector('#simWeatherDesc');
-          const headerEl = phoneViewport.querySelector('.sim-app-title');
-
-          if (tempEl) tempEl.textContent = temp;
-          if (descEl) descEl.textContent = `${desc} • Humidity 50%`;
-          if (headerEl) headerEl.innerHTML = `<i class="fa-solid fa-location-dot" style="color:#54C5F8;"></i> ${city}`;
-          showToast(`Fetched REST API data for ${city}!`);
-        });
-      });
-    } else if (appKey === 'notes') {
-      const addNoteBtn = phoneViewport.querySelector('#simAddNoteBtn');
-      if (addNoteBtn) {
-        addNoteBtn.addEventListener('click', () => {
-          showToast("Created new note in Hive Storage!");
+      const requestBtn = phoneViewport.querySelector('#simRequestBtn');
+      if (requestBtn) {
+        requestBtn.addEventListener('click', () => {
+          showToast('Assistance request sent via Firebase!');
         });
       }
     }
@@ -446,7 +335,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Initial Simulator Load
-  loadSimulatorApp('skincare');
+  loadSimulatorApp('azkar');
 
   // ------------------------------------------------------------------------
   // 5. PROJECT CATEGORY FILTERING LOGIC
@@ -482,116 +371,95 @@ document.addEventListener('DOMContentLoaded', () => {
   const copyCodeBtn = document.getElementById('copyCodeBtn');
 
   const codeSnippets = {
-    provider: `// lib/providers/skincare_provider.dart
-import 'package:flutter/foundation.dart';
-import '../models/skincare_product.dart';
-import '../repositories/skincare_repository.dart';
+    provider: `// lib/blocs/azkar_bloc.dart
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../models/azkar_model.dart';
+import '../repositories/azkar_repository.dart';
 
-<span class="code-kw">class</span> <span class="code-type">SkincareProvider</span> <span class="code-kw">extends</span> <span class="code-type">ChangeNotifier</span> {
-  <span class="code-kw">final</span> <span class="code-type">SkincareRepository</span> _repository;
-  
-  <span class="code-type">List</span>&lt;<span class="code-type">SkincareProduct</span>&gt; _products = [];
-  <span class="code-type">String</span> _selectedSkinType = <span class="code-str">'Dry'</span>;
-  <span class="code-type">bool</span> _isLoading = <span class="code-kw">false</span>;
+<span class="code-kw">class</span> <span class="code-type">AzkarBloc</span> <span class="code-kw">extends</span> <span class="code-type">Bloc</span>&lt;<span class="code-type">AzkarEvent</span>, <span class="code-type">AzkarState</span>&gt; {
+  <span class="code-kw">final</span> <span class="code-type">AzkarRepository</span> _repository;
 
-  <span class="code-type">SkincareProvider</span>(<span class="code-kw">this</span>._repository);
+  <span class="code-type">AzkarBloc</span>(<span class="code-kw">this</span>._repository) : <span class="code-kw">super</span>(<span class="code-type">AzkarInitial</span>()) {
+    <span class="code-func">on</span>&lt;<span class="code-type">LoadAzkarByCategory</span>&gt;(_onLoadAzkar);
+    <span class="code-func">on</span>&lt;<span class="code-type">IncrementAzkarCount</span>&gt;(_onIncrement);
+  }
 
-  <span class="code-type">List</span>&lt;<span class="code-type">SkincareProduct</span>&gt; <span class="code-kw">get</span> products =&gt; _products;
-  <span class="code-type">String</span> <span class="code-kw">get</span> selectedSkinType =&gt; _selectedSkinType;
-  <span class="code-type">bool</span> <span class="code-kw">get</span> isLoading =&gt; _isLoading;
+  <span class="code-type">Future</span>&lt;<span class="code-kw">void</span>&gt; <span class="code-func">_onLoadAzkar</span>(
+    <span class="code-type">LoadAzkarByCategory</span> event, <span class="code-type">Emitter</span> emit) <span class="code-kw">async</span> {
+    emit(<span class="code-type">AzkarLoading</span>());
+    <span class="code-kw">final</span> list = <span class="code-kw">await</span> _repository.<span class="code-func">fetchByCategory</span>(event.category);
+    emit(<span class="code-type">AzkarLoaded</span>(azkarList: list));
+  }
 
-  <span class="code-type">Future</span>&lt;<span class="code-kw">void</span>&gt; <span class="code-func">fetchRecommendations</span>(<span class="code-type">String</span> skinType) <span class="code-kw">async</span> {
-    _isLoading = <span class="code-kw">true</span>;
-    _selectedSkinType = skinType;
-    <span class="code-func">notifyListeners</span>();
+  <span class="code-kw">void</span> <span class="code-func">_onIncrement</span>(<span class="code-type">IncrementAzkarCount</span> event, <span class="code-type">Emitter</span> emit) {
+    <span class="code-kw">if</span> (state <span class="code-kw">is</span> <span class="code-type">AzkarLoaded</span>) {
+      <span class="code-kw">final</span> s = state <span class="code-kw">as</span> <span class="code-type">AzkarLoaded</span>;
+      emit(s.<span class="code-func">copyWith</span>(count: s.count + 1));
+    }
+  }
+}`,
+    firebase: `// lib/services/firebase_service.dart
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../models/mechanic_model.dart';
 
+<span class="code-kw">class</span> <span class="code-type">FirebaseService</span> {
+  <span class="code-kw">final</span> <span class="code-type">FirebaseFirestore</span> _db = <span class="code-type">FirebaseFirestore</span>.<span class="code-func">instance</span>;
+
+  <span class="code-type">Stream</span>&lt;<span class="code-type">List</span>&lt;<span class="code-type">MechanicModel</span>&gt;&gt; <span class="code-func">getNearbyMechanics</span>(<span class="code-type">GeoPoint</span> location) {
+    <span class="code-kw">return</span> _db
+      .<span class="code-func">collection</span>(<span class="code-str">'mechanics'</span>)
+      .<span class="code-func">where</span>(<span class="code-str">'isAvailable'</span>, isEqualTo: <span class="code-kw">true</span>)
+      .<span class="code-func">snapshots</span>()
+      .<span class="code-func">map</span>((snap) => snap.docs
+        .<span class="code-func">map</span>((d) => <span class="code-type">MechanicModel</span>.<span class="code-func">fromFirestore</span>(d))
+        .<span class="code-func">toList</span>());
+  }
+
+  <span class="code-type">Future</span>&lt;<span class="code-kw">void</span>&gt; <span class="code-func">createAssistanceRequest</span>(<span class="code-type">RequestModel</span> req) <span class="code-kw">async</span> {
+    <span class="code-kw">await</span> _db
+      .<span class="code-func">collection</span>(<span class="code-str">'requests'</span>)
+      .<span class="code-func">add</span>(req.<span class="code-func">toMap</span>());
+  }
+}`,
+    api: `// lib/repositories/motora_repository.dart
+import '../datasources/remote/motora_remote_datasource.dart';
+import '../datasources/local/motora_local_datasource.dart';
+import '../../domain/entities/request_entity.dart';
+
+<span class="code-kw">class</span> <span class="code-type">MotoraRepository</span> {
+  <span class="code-kw">final</span> <span class="code-type">MotoraRemoteDataSource</span> remote;
+  <span class="code-kw">final</span> <span class="code-type">MotoraLocalDataSource</span> local;
+
+  <span class="code-type">MotoraRepository</span>({<span class="code-ann">required</span> <span class="code-kw">this</span>.remote, <span class="code-ann">required</span> <span class="code-kw">this</span>.local});
+
+  <span class="code-type">Future</span>&lt;<span class="code-type">RequestEntity</span>&gt; <span class="code-func">submitRequest</span>(<span class="code-type">RequestEntity</span> entity) <span class="code-kw">async</span> {
     <span class="code-kw">try</span> {
-      _products = <span class="code-kw">await</span> _repository.<span class="code-func">getProductsBySkinType</span>(skinType);
-    } <span class="code-kw">catch</span> (e) {
-      <span class="code-type">debugPrint</span>(<span class="code-str">'Error fetching recommendations: $e'</span>);
-    } <span class="code-kw">finally</span> {
-      _isLoading = <span class="code-kw">false</span>;
-      <span class="code-func">notifyListeners</span>();
+      <span class="code-kw">final</span> result = <span class="code-kw">await</span> remote.<span class="code-func">sendRequest</span>(entity);
+      <span class="code-kw">await</span> local.<span class="code-func">cacheRequest</span>(result);
+      <span class="code-kw">return</span> result;
+    } <span class="code-kw">catch</span> (_) {
+      <span class="code-kw">return</span> local.<span class="code-func">getLastCachedRequest</span>();
     }
   }
 }`,
-    hive: `// lib/services/hive_storage_service.dart
-import 'package:hive_flutter/hive_flutter.dart';
-import '../models/task_model.dart';
+    clean: `// lib/data/repositories/azkar_repository_impl.dart
+import '../../domain/entities/azkar_entity.dart';
+import '../../domain/repositories/azkar_repository.dart';
+import '../datasources/azkar_local_datasource.dart';
 
-<span class="code-kw">class</span> <span class="code-type">HiveStorageService</span> {
-  <span class="code-kw">static const</span> <span class="code-type">String</span> _taskBoxName = <span class="code-str">'tasksBox'</span>;
+<span class="code-kw">class</span> <span class="code-type">AzkarRepositoryImpl</span> <span class="code-kw">implements</span> <span class="code-type">AzkarRepository</span> {
+  <span class="code-kw">final</span> <span class="code-type">AzkarLocalDataSource</span> localDataSource;
 
-  <span class="code-type">Future</span>&lt;<span class="code-kw">void</span>&gt; <span class="code-func">initHive</span>() <span class="code-kw">async</span> {
-    <span class="code-kw">await</span> <span class="code-type">Hive</span>.<span class="code-func">initFlutter</span>();
-    <span class="code-type">Hive</span>.<span class="code-func">registerAdapter</span>(<span class="code-type">TaskModelAdapter</span>());
-    <span class="code-kw">await</span> <span class="code-type">Hive</span>.<span class="code-func">openBox</span>&lt;<span class="code-type">TaskModel</span>&gt;(_taskBoxName);
-  }
-
-  <span class="code-type">Box</span>&lt;<span class="code-type">TaskModel</span>&gt; <span class="code-kw">get</span> _taskBox =&gt; <span class="code-type">Hive</span>.<span class="code-func">box</span>&lt;<span class="code-type">TaskModel</span>&gt;(_taskBoxName);
-
-  <span class="code-type">List</span>&lt;<span class="code-type">TaskModel</span>&gt; <span class="code-func">getAllTasks</span>() {
-    <span class="code-kw">return</span> _taskBox.values.<span class="code-func">toList</span>();
-  }
-
-  <span class="code-type">Future</span>&lt;<span class="code-kw">void</span>&gt; <span class="code-func">addTask</span>(<span class="code-type">TaskModel</span> task) <span class="code-kw">async</span> {
-    <span class="code-kw">await</span> _taskBox.<span class="code-func">put</span>(task.id, task);
-  }
-
-  <span class="code-type">Future</span>&lt;<span class="code-kw">void</span>&gt; <span class="code-func">toggleTaskStatus</span>(<span class="code-type">String</span> id) <span class="code-kw">async</span> {
-    <span class="code-kw">final</span> task = _taskBox.<span class="code-func">get</span>(id);
-    <span class="code-kw">if</span> (task != <span class="code-kw">null</span>) {
-      task.isCompleted = !task.isCompleted;
-      <span class="code-kw">await</span> task.<span class="code-func">save</span>();
-    }
-  }
-}`,
-    api: `// lib/services/weather_api_service.dart
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-import '../models/weather_model.dart';
-
-<span class="code-kw">class</span> <span class="code-type">WeatherApiService</span> {
-  <span class="code-kw">static const</span> <span class="code-type">String</span> _baseUrl = <span class="code-str">'https://api.openweathermap.org/data/2.5/weather'</span>;
-  <span class="code-kw">final</span> <span class="code-type">String</span> _apiKey;
-
-  <span class="code-type">WeatherApiService</span>({<span class="code-ann">required</span> <span class="code-type">String</span> apiKey}) : _apiKey = apiKey;
-
-  <span class="code-type">Future</span>&lt;<span class="code-type">WeatherModel</span>&gt; <span class="code-func">fetchCityWeather</span>(<span class="code-type">String</span> cityName) <span class="code-kw">async</span> {
-    <span class="code-kw">final</span> uri = <span class="code-type">Uri</span>.<span class="code-func">parse</span>(<span class="code-str">'$_baseUrl?q=$cityName&appid=$_apiKey&units=metric'</span>);
-    <span class="code-kw">final</span> response = <span class="code-kw">await</span> http.<span class="code-func">get</span>(uri);
-
-    <span class="code-kw">if</span> (response.statusCode == <span class="code-str">200</span>) {
-      <span class="code-kw">final</span> <span class="code-type">Map</span>&lt;<span class="code-type">String</span>, <span class="code-type">dynamic</span>&gt; data = <span class="code-type">jsonDecode</span>(response.body);
-      <span class="code-kw">return</span> <span class="code-type">WeatherModel</span>.<span class="code-func">fromJson</span>(data);
-    } <span class="code-kw">else</span> {
-      <span class="code-kw">throw</span> <span class="code-type">Exception</span>(<span class="code-str">'Failed to load weather data for $cityName'</span>);
-    }
-  }
-}`,
-    clean: `// lib/data/repositories/task_repository_impl.dart
-import '../../domain/entities/task.dart';
-import '../../domain/repositories/task_repository.dart';
-import '../datasources/task_local_datasource.dart';
-
-<span class="code-kw">class</span> <span class="code-type">TaskRepositoryImpl</span> <span class="code-kw">implements</span> <span class="code-type">TaskRepository</span> {
-  <span class="code-kw">final</span> <span class="code-type">TaskLocalDataSource</span> localDataSource;
-
-  <span class="code-type">TaskRepositoryImpl</span>({<span class="code-ann">required</span> <span class="code-kw">this</span>.localDataSource});
+  <span class="code-type">AzkarRepositoryImpl</span>({<span class="code-ann">required</span> <span class="code-kw">this</span>.localDataSource});
 
   <span class="code-ann">@override</span>
-  <span class="code-type">Future</span>&lt;<span class="code-type">List</span>&lt;<span class="code-type">Task</span>&gt;&gt; <span class="code-func">getTasks</span>() <span class="code-kw">async</span> {
-    <span class="code-kw">final</span> models = <span class="code-kw">await</span> localDataSource.<span class="code-func">getTasksFromStorage</span>();
-    <span class="code-kw">return</span> models.<span class="code-func">map</span>((m) =&gt; m.<span class="code-func">toEntity</span>()).<span class="code-func">toList</span>();
-  }
-
-  <span class="code-ann">@override</span>
-  <span class="code-type">Future</span>&lt;<span class="code-kw">void</span>&gt; <span class="code-func">saveTask</span>(<span class="code-type">Task</span> task) <span class="code-kw">async</span> {
-    <span class="code-kw">final</span> model = <span class="code-type">TaskModel</span>.<span class="code-func">fromEntity</span>(task);
-    <span class="code-kw">await</span> localDataSource.<span class="code-func">saveTask</span>(model);
+  <span class="code-type">Future</span>&lt;<span class="code-type">List</span>&lt;<span class="code-type">AzkarEntity</span>&gt;&gt; <span class="code-func">fetchByCategory</span>(<span class="code-type">String</span> category) <span class="code-kw">async</span> {
+    <span class="code-kw">final</span> models = <span class="code-kw">await</span> localDataSource.<span class="code-func">getAzkarByCategory</span>(category);
+    <span class="code-kw">return</span> models.<span class="code-func">map</span>((m) => m.<span class="code-func">toEntity</span>()).<span class="code-func">toList</span>();
   }
 }`
   };
+
 
   let currentTabKey = 'provider';
 
@@ -660,75 +528,32 @@ import '../datasources/task_local_datasource.dart';
   // 8. Detailed Project Specifications Data & Modal System
   // ------------------------------------------------------------------------
   const projectsData = {
-    skincare: {
-      title: "Skin Care Advisor",
+    azkar: {
+      title: "Azkar App",
       badge: "Mobile Application",
-      image: "assets/skincare.png",
-      description: "A comprehensive Flutter application designed to assist users in identifying their skin type and finding tailored skincare product recommendations. Built with clean architecture and reactive UI components.",
+      image: "assets/Azkar_Home.png",
+      description: "A cross-platform Flutter mobile application.",
       features: [
-        "Interactive skin type diagnostic test and questionnaire.",
-        "Personalized product recommendation engine based on skin concerns.",
-        "Clean, intuitive product details view with ingredient breakdowns.",
-        "State management implemented using the Provider pattern."
+        "Cross-platform compatibility for Android & iOS.",
+        "Clean UI/UX design.",
+        "Responsive and adaptable layout."
       ],
-      tech: ["Flutter", "Dart", "Provider", "Material Design", "JSON Local Specs"],
-      link: "https://github.com/muhammadabueid"
+      tech: ["Flutter", "Dart", "Material UI"],
+      link: "https://github.com/muhammadabueid/flutter-app"
     },
-    taskmanager: {
-      title: "Task Manager App",
-      badge: "Productivity Tool",
-      image: "assets/taskmanager.png",
-      description: "A productivity mobile app built with Flutter that provides seamless offline task tracking, custom category management, and progress statistics with instant persistent storage.",
+    motora: {
+      title: "Motora",
+      badge: "Roadside Assistance Platform",
+      image: "assets/motora_home.jpeg",
+      description: "A smart Flutter-based roadside assistance platform connecting drivers with verified mechanics and tow operators through real-time location, intelligent matching, tracking, and seamless service management.",
       features: [
-        "Offline-first architecture using Hive local database.",
-        "Task prioritization, category tagging, and due-date scheduling.",
-        "Dark theme & light theme auto-adaptation.",
-        "Responsive grid layout designed for phone and tablet screens."
+        "Real-time location tracking.",
+        "Intelligent matching with mechanics and tow operators.",
+        "Seamless service management.",
+        "Built with clean architecture."
       ],
-      tech: ["Flutter", "Dart", "Hive DB", "Provider", "Clean Architecture"],
-      link: "https://github.com/muhammadabueid"
-    },
-    weather: {
-      title: "Weather Application",
-      badge: "API Integration",
-      image: "assets/weather.png",
-      description: "Real-time weather forecast application retrieving live meteorological data from OpenWeather REST API. Displays hourly forecasts, humidity, wind speeds, and UV indices.",
-      features: [
-        "Live location-based weather updates via REST API.",
-        "Hourly and 7-day extended weather forecast cards.",
-        "Search functionality for major global cities.",
-        "Dynamic UI gradient shifts matching weather conditions."
-      ],
-      tech: ["Flutter", "REST API", "JSON Parsing", "Http Package", "Geolocation"],
-      link: "https://github.com/muhammadabueid"
-    },
-    notes: {
-      title: "Notes Application",
-      badge: "Local Data Storage",
-      image: "assets/notes.png",
-      description: "A high-performance note-taking app prioritizing user privacy and quick access. Uses Hive for ultra-fast disk read/writes and supports note categorization and full-text search.",
-      features: [
-        "Ultra-fast local CRUD operations with Hive database.",
-        "Color-coded note cards and tag filtering.",
-        "Real-time search across note titles and body content.",
-        "Minimalist aesthetic with focus on distraction-free writing."
-      ],
-      tech: ["Flutter", "Dart", "Hive DB", "Provider", "Material UI"],
-      link: "https://github.com/muhammadabueid"
-    },
-    portfolio: {
-      title: "Portfolio Website",
-      badge: "Web Application",
-      image: "assets/taskmanager.png",
-      description: "A modern, highly aesthetic personal portfolio web application designed for desktop, tablet, and mobile devices showcasing mobile development expertise.",
-      features: [
-        "Custom design system with dark mode & Flutter cyan glows.",
-        "Interactive simulated mobile smartphone frame hero visual.",
-        "Accessible, high-performance HTML5, CSS3, and JavaScript implementation.",
-        "Client-side form validation and modal viewer system."
-      ],
-      tech: ["HTML5", "Vanilla CSS", "JavaScript ES6+", "Responsive Design"],
-      link: "https://github.com/muhammadabueid"
+      tech: ["Flutter", "Dart", "Maps API", "Real-time Tracking"],
+      link: "https://github.com/ahmedmetwall/Motora"
     }
   };
 
@@ -751,8 +576,31 @@ import '../datasources/task_local_datasource.dart';
         <h2 class="modal-title">${project.title}</h2>
       </div>
 
-      <div class="modal-img-wrapper" style="margin: 1.5rem 0; border-radius: var(--radius-md); overflow: hidden; max-height: 280px;">
-        <img src="${project.image}" alt="${project.title} Screenshot" style="width: 100%; height: 100%; object-fit: cover;">
+      <div class="modal-img-wrapper" style="margin: 1.5rem auto; display: flex; justify-content: center;">
+        <div class="phone-frame" style="transform: scale(0.85); transform-origin: top center; margin-bottom: -50px;">
+          <!-- Top Hardware Notch -->
+          <div class="phone-notch">
+            <div class="speaker-earpiece"></div>
+            <div class="camera-lens"></div>
+          </div>
+          
+          <!-- Phone Status Bar -->
+          <div class="phone-status-bar">
+            <span class="status-time">09:41</span>
+            <div class="status-icons">
+              <i class="fa-solid fa-signal"></i>
+              <i class="fa-solid fa-wifi"></i>
+              <i class="fa-solid fa-battery-three-quarters"></i>
+            </div>
+          </div>
+
+          <!-- DYNAMIC INTERACTIVE SCREEN DISPLAY -->
+          <div class="phone-screen-viewport" style="background: url('${project.image}') center/cover no-repeat;">
+          </div>
+
+          <!-- Bottom Home Indicator -->
+          <div class="phone-home-indicator"></div>
+        </div>
       </div>
 
       <p class="modal-description" style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.65;">
